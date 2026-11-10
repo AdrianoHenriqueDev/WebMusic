@@ -7,6 +7,8 @@ import { ChordTrainer } from './components/Chords/ChordTrainer';
 import { RiffFlowPlayer } from './components/RiffFlow/RiffFlowPlayer';
 import { InteractiveTuner } from './components/Tuner/InteractiveTuner';
 import { AcousticVsElectric } from './components/InstrumentGuide/AcousticVsElectric';
+import { SongbookView } from './components/Songbook/SongbookView';
+import { DailyWorkout } from './components/DailyWorkout/DailyWorkout';
 import { MetronomeWidget } from './components/Metronome/MetronomeWidget';
 import { Guitar, Sparkles, Heart } from 'lucide-react';
 
@@ -62,6 +64,17 @@ export function App() {
 
         {currentTab === 'riffs' && (
           <RiffFlowPlayer isInvertedView={isInvertedView} />
+        )}
+
+        {currentTab === 'songs' && (
+          <SongbookView
+            isInvertedView={isInvertedView}
+            onSelectChord={(id) => handleNavigateTab('chords', id)}
+          />
+        )}
+
+        {currentTab === 'workout' && (
+          <DailyWorkout isInvertedView={isInvertedView} />
         )}
 
         {currentTab === 'tuner' && (

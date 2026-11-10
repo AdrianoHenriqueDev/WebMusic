@@ -9,6 +9,8 @@ import {
   Mic2, 
   Sliders, 
   HelpCircle, 
+  Flame,
+  BookMarked,
   Volume2, 
   VolumeX,
   Repeat
@@ -56,6 +58,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'fretboard', label: 'Braço Interativo', icon: Guitar },
     { id: 'chords', label: 'Acordes & Treino', icon: Music2 },
     { id: 'riffs', label: 'Riff Flow', icon: Zap, highlight: true },
+    { id: 'songs', label: 'Músicas Cifradas', icon: BookMarked },
+    { id: 'workout', label: 'Treino 15 Min', icon: Flame, badge: 'Diário' },
     { id: 'tuner', label: 'Afinador', icon: Mic2 },
     { id: 'guide', label: 'Violão vs Guitarra', icon: HelpCircle },
   ];
