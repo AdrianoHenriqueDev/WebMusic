@@ -263,3 +263,4 @@ export const DailyWorkout: React.FC<{ isInvertedView?: boolean }> = ({ isInverte
     </div>
   );
 };
+
