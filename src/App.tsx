@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { InstrumentType } from './types';
-import { Navbar } from './components/Navbar';
+import { Sidebar } from './components/Sidebar';
 import { LessonJourney } from './components/Lessons/LessonJourney';
 import { FretboardExplorer } from './components/Fretboard/FretboardExplorer';
 import { ChordTrainer } from './components/Chords/ChordTrainer';
@@ -28,10 +28,10 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#080C14] text-slate-100 selection:bg-rose-500 selection:text-white">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-[#080C14] text-slate-100 selection:bg-rose-500 selection:text-white">
       
-      {/* Top Navbar */}
-      <Navbar
+      {/* Sidebar (Permanent on Desktop, Slide-over Drawer on Mobile) */}
+      <Sidebar
         currentTab={currentTab}
         onSelectTab={(tab) => setCurrentTab(tab)}
         instrument={instrument}
@@ -42,72 +42,74 @@ export function App() {
         onChangeVolume={setVolume}
       />
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
-        {currentTab === 'lessons' && (
-          <LessonJourney
-            onNavigateTab={handleNavigateTab}
-            isInvertedView={isInvertedView}
-          />
-        )}
+      {/* Main Content Column */}
+      <div className="flex-1 flex flex-col min-w-0">
+        <main className="flex-1 max-w-6xl w-full mx-auto px-3 sm:px-6 py-5 sm:py-8">
+          {currentTab === 'lessons' && (
+            <LessonJourney
+              onNavigateTab={handleNavigateTab}
+              isInvertedView={isInvertedView}
+            />
+          )}
 
-        {currentTab === 'fretboard' && (
-          <FretboardExplorer isInvertedView={isInvertedView} />
-        )}
+          {currentTab === 'fretboard' && (
+            <FretboardExplorer isInvertedView={isInvertedView} />
+          )}
 
-        {currentTab === 'chords' && (
-          <ChordTrainer
-            initialChordId={targetChordId}
-            isInvertedView={isInvertedView}
-          />
-        )}
+          {currentTab === 'chords' && (
+            <ChordTrainer
+              initialChordId={targetChordId}
+              isInvertedView={isInvertedView}
+            />
+          )}
 
-        {currentTab === 'riffs' && (
-          <RiffFlowPlayer isInvertedView={isInvertedView} />
-        )}
+          {currentTab === 'riffs' && (
+            <RiffFlowPlayer isInvertedView={isInvertedView} />
+          )}
 
-        {currentTab === 'songs' && (
-          <SongbookView
-            isInvertedView={isInvertedView}
-            onSelectChord={(id) => handleNavigateTab('chords', id)}
-          />
-        )}
+          {currentTab === 'songs' && (
+            <SongbookView
+              isInvertedView={isInvertedView}
+              onSelectChord={(id) => handleNavigateTab('chords', id)}
+            />
+          )}
 
-        {currentTab === 'workout' && (
-          <DailyWorkout isInvertedView={isInvertedView} />
-        )}
+          {currentTab === 'workout' && (
+            <DailyWorkout isInvertedView={isInvertedView} />
+          )}
 
-        {currentTab === 'tuner' && (
-          <InteractiveTuner />
-        )}
+          {currentTab === 'tuner' && (
+            <InteractiveTuner />
+          )}
 
-        {currentTab === 'guide' && (
-          <AcousticVsElectric />
-        )}
-      </main>
+          {currentTab === 'guide' && (
+            <AcousticVsElectric />
+          )}
+        </main>
 
-      {/* Floating Bottom Metronome Bar */}
-      <div className="sticky bottom-0 z-40 bg-[#0B0F17]/90 backdrop-blur-md border-t border-slate-800/80 px-4 py-2.5">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          <div className="w-full max-w-2xl mx-auto">
-            <MetronomeWidget />
+        {/* Floating Bottom Metronome Bar */}
+        <div className="sticky bottom-0 z-40 bg-[#0B0F17]/90 backdrop-blur-md border-t border-slate-800/80 px-4 py-2.5">
+          <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
+            <div className="w-full">
+              <MetronomeWidget />
+            </div>
           </div>
         </div>
+
+        {/* Footer */}
+        <footer className="border-t border-slate-800/80 bg-slate-950 py-6 px-4 text-center text-xs text-slate-500">
+          <div className="max-w-4xl mx-auto space-y-1.5">
+            <div className="flex items-center justify-center gap-2 text-slate-400">
+              <span>FretFlow — Inspirado na intuitividade visual do Rocksmith</span>
+              <span>•</span>
+              <span>Para Violão e Guitarra</span>
+            </div>
+            <p className="text-slate-600">
+              Desenvolvido para transformar o aprendizado de cordas em algo visual, divertido e imediato.
+            </p>
+          </div>
+        </footer>
       </div>
-
-      {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-slate-950 py-8 px-4 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto space-y-2">
-          <div className="flex items-center justify-center gap-2 text-slate-400">
-            <span>FretFlow — Inspirado na intuitividade visual do Rocksmith</span>
-            <span>•</span>
-            <span>Para Violão e Guitarra</span>
-          </div>
-          <p className="text-slate-600">
-            Desenvolvido para transformar o aprendizado de cordas em algo visual, divertido e imediato.
-          </p>
-        </div>
-      </footer>
 
     </div>
   );

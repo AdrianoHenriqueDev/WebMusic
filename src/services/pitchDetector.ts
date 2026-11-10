@@ -243,3 +243,4 @@ export class GuitarPitchDetector {
 }
 
 export const guitarPitchDetector = new GuitarPitchDetector();
+
